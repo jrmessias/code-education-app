@@ -27,8 +27,7 @@ class Kernel extends HttpKernel
             \JrMessias\Http\Middleware\EncryptCookies::class,
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
             \Illuminate\Session\Middleware\StartSession::class,
-            \Illuminate\View\Middleware\ShareErrorsFromSession::class,
-            \JrMessias\Http\Middleware\VerifyCsrfToken::class,
+            \Illuminate\View\Middleware\ShareErrorsFromSession::class
         ],
 
         'api' => [
@@ -48,5 +47,6 @@ class Kernel extends HttpKernel
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'guest' => \JrMessias\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'csrf' => \JrMessias\Http\Middleware\VerifyCsrfToken::class
     ];
 }
