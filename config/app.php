@@ -147,6 +147,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        Prettus\Repository\Providers\RepositoryServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -155,6 +156,7 @@ return [
         JrMessias\Providers\AuthServiceProvider::class,
         JrMessias\Providers\EventServiceProvider::class,
         JrMessias\Providers\RouteServiceProvider::class,
+        JrMessias\Providers\JrMessiasRepositoryProvider::class
 
     ],
 

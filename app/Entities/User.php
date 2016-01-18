@@ -1,6 +1,6 @@
 <?php
 
-namespace JrMessias;
+namespace JrMessias\Entities;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 

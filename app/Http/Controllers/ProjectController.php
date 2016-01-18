@@ -3,26 +3,28 @@
 namespace JrMessias\Http\Controllers;
 
 use Illuminate\Http\Request;
-use JrMessias\Repositories\ClientRepository;
-use JrMessias\Services\ClientService;
 
-class ClientController extends Controller
+use JrMessias\Http\Requests;
+use JrMessias\Http\Controllers\Controller;
+use JrMessias\Repositories\ProjectRepository;
+use JrMessias\Services\ProjectService;
+
+class ProjectController extends Controller
 {
-
     /**
-     * @var ClientRepository
+     * @var ProjectRepository
      */
     private $repository;
 
     /**
-     * @var ClientService
+     * @var ProjectService
      */
     private $service;
 
-    public function __construct(ClientRepository $clientRepository, ClientService $clientService)
+    public function __construct(ProjectRepository $projectRepository, ProjectService $projectService)
     {
-        $this->repository = $clientRepository;
-        $this->service = $clientService;
+        $this->repository = $projectRepository;
+        $this->service = $projectService;
     }
 
     /**
@@ -30,7 +32,7 @@ class ClientController extends Controller
      */
     public function index()
     {
-        return $this->repository->all();
+        return $this->repository->with(['owner', 'client'])->all();
     }
 
     /**
@@ -49,7 +51,7 @@ class ClientController extends Controller
      */
     public function update($id, Request $request)
     {
-        return $this->service->find($id)->update($request->all());
+        return $this->service->with(['owner', 'client'])->find($id)->update($request->all());
     }
 
     /**
@@ -58,7 +60,7 @@ class ClientController extends Controller
      */
     public function show($id)
     {
-        return $this->repository->find($id);
+        return $this->repository->with(['owner', 'client'])->find($id);
     }
 
 

@@ -11,7 +11,7 @@
 |
 */
 
-$factory->define(JrMessias\User::class, function (Faker\Generator $faker) {
+$factory->define(JrMessias\Entities\User::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
         'email' => $faker->email,
@@ -20,7 +20,7 @@ $factory->define(JrMessias\User::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(JrMessias\Client::class, function (Faker\Generator $faker) {
+$factory->define(JrMessias\Entities\Client::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
         'responsible' => $faker->name,
@@ -30,3 +30,15 @@ $factory->define(JrMessias\Client::class, function (Faker\Generator $faker) {
         'obs' => $faker->sentence
     ];
 });
+
+$factory->define(JrMessias\Entities\Project::class, function (Faker\Generator $faker) {
+    return [
+        'owner_id' => rand(1,5),
+        'client_id' => rand(1,5),
+        'name' => $faker->name,
+        'description' => $faker->paragraph,
+        'progress' => rand(1,5),
+        'status' => rand(0,1)
+    ];
+});
+
