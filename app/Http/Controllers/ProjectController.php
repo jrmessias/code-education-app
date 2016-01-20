@@ -2,12 +2,11 @@
 
 namespace JrMessias\Http\Controllers;
 
-use Illuminate\Http\Request;
-
 use JrMessias\Http\Requests;
-use JrMessias\Http\Controllers\Controller;
 use JrMessias\Repositories\ProjectRepository;
 use JrMessias\Services\ProjectService;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\Request;
 
 class ProjectController extends Controller
 {
@@ -32,7 +31,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        return $this->repository->with(['owner', 'client'])->all();
+        return $this->service->all();
     }
 
     /**
@@ -51,7 +50,11 @@ class ProjectController extends Controller
      */
     public function update($id, Request $request)
     {
-        return $this->service->with(['owner', 'client'])->find($id)->update($request->all());
+        try {
+            return $this->repository->find($id)->update($request->all());
+        } catch (ModelNotFoundException $e) {
+            return ['status' => false, 'message' => 'Não foi possível atualizar o projeto'];
+        }
     }
 
     /**
@@ -60,7 +63,11 @@ class ProjectController extends Controller
      */
     public function show($id)
     {
-        return $this->repository->with(['owner', 'client'])->find($id);
+        try {
+            return $this->service->find($id);
+        } catch (ModelNotFoundException $e) {
+            return ['status' => false, 'message' => 'Não foi possível localizar o projeto'];
+        }
     }
 
 
@@ -70,6 +77,11 @@ class ProjectController extends Controller
      */
     public function destroy($id)
     {
-        return $this->repository->delete($id);
+        try {
+            $this->repository->delete($id);
+            return ['status' => true, 'message' => 'Projeto excluído com sucesso'];
+        } catch (ModelNotFoundException $e) {
+            return ['status' => false, 'message' => 'Não foi possível excluir o projeto'];
+        }
     }
 }

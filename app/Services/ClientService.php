@@ -8,8 +8,6 @@
 
 namespace JrMessias\Services;
 
-
-use Illuminate\Contracts\Validation\ValidationException;
 use JrMessias\Repositories\ClientRepository;
 use JrMessias\Validators\ClientValidator;
 use Prettus\Validator\Exceptions\ValidatorException;

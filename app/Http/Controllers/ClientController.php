@@ -2,9 +2,11 @@
 
 namespace JrMessias\Http\Controllers;
 
-use Illuminate\Http\Request;
+use JrMessias\Http\Requests;
 use JrMessias\Repositories\ClientRepository;
 use JrMessias\Services\ClientService;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\Request;
 
 class ClientController extends Controller
 {
@@ -49,7 +51,11 @@ class ClientController extends Controller
      */
     public function update($id, Request $request)
     {
-        return $this->service->find($id)->update($request->all());
+        try {
+            return $this->repository->find($id)->update($request->all());
+        } catch (ModelNotFoundException $e) {
+            return ['status' => false, 'message' => 'Não foi possível atualizar o cliente'];
+        }
     }
 
     /**
@@ -58,7 +64,11 @@ class ClientController extends Controller
      */
     public function show($id)
     {
-        return $this->repository->find($id);
+        try {
+            return $this->repository->find($id);
+        } catch (ModelNotFoundException $e) {
+            return ['status' => false, 'message' => 'Não foi possível exibir o cliente'];
+        }
     }
 
 
@@ -68,6 +78,11 @@ class ClientController extends Controller
      */
     public function destroy($id)
     {
-        return $this->repository->delete($id);
+        try {
+            return $this->repository->find($id)->delete();
+            return ['status' => true, 'message' => 'Projeto excluído com sucesso'];
+        } catch (\PDOException $e) {
+            return ['status' => false, 'message' => 'Não foi possível excluir o cliente'];
+        }
     }
 }

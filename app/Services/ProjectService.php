@@ -57,4 +57,15 @@ class ProjectService
 
         return $this->repository->update($data, $id);
     }
+
+    public function all()
+    {
+        return $this->repository->with(['client', 'owner'])->all();
+    }
+
+    public function find($id)
+    {
+        return $this->repository->with(['client', 'owner'])->find($id);
+    }
+
 }

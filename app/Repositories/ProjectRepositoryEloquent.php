@@ -22,12 +22,4 @@ class ProjectRepositoryEloquent extends BaseRepository implements ProjectReposit
     {
         return Project::class;
     }
-
-    /**
-     * Boot up the repository, pushing criteria
-     */
-    public function boot()
-    {
-        $this->pushCriteria(app(RequestCriteria::class));
-    }
 }
