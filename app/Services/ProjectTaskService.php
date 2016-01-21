@@ -8,25 +8,25 @@
 
 namespace JrMessias\Services;
 
-use JrMessias\Repositories\ProjectRepository;
-use JrMessias\Validators\ProjectValidator;
+use JrMessias\Repositories\ProjectTaskRepository;
+use JrMessias\Validators\ProjectTaskValidator;
 use Prettus\Validator\Exceptions\ValidatorException;
 
-class ProjectService
+class ProjectTaskService
 {
     /**
-     * @var ProjectRepository
+     * @var ProjectTaskRepository
      */
     protected $repository;
     /**
-     * @var ProjectValidator
+     * @var ProjectTaskValidator
      */
     private $validator;
 
-    public function __construct(ProjectRepository $projectRepository, ProjectValidator $projectValidator)
+    public function __construct(ProjectTaskRepository $projectTaskRepository, ProjectTaskValidator $projectTaskValidator)
     {
-        $this->repository = $projectRepository;
-        $this->validator = $projectValidator;
+        $this->repository = $projectTaskRepository;
+        $this->validator = $projectTaskValidator;
     }
 
     public function create(array $data)

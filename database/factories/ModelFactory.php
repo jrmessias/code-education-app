@@ -37,7 +37,25 @@ $factory->define(JrMessias\Entities\Project::class, function (Faker\Generator $f
         'client_id' => rand(1,5),
         'name' => $faker->name,
         'description' => $faker->paragraph,
-        'progress' => rand(1,5),
+        'progress' => rand(1,100),
+        'status' => rand(0,1)
+    ];
+});
+
+$factory->define(JrMessias\Entities\ProjectNote::class, function (Faker\Generator $faker) {
+    return [
+        'project_id' => rand(1,10),
+        'title' => $faker->word,
+        'note' => $faker->paragraph
+    ];
+});
+
+$factory->define(JrMessias\Entities\ProjectTask::class, function (Faker\Generator $faker) {
+    return [
+        'project_id' => rand(1,10),
+        'name' => $faker->word,
+        'start_date' => $faker->date(),
+        'due_date' => $faker->date(),
         'status' => rand(0,1)
     ];
 });
