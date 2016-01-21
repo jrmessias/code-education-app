@@ -60,3 +60,10 @@ $factory->define(JrMessias\Entities\ProjectTask::class, function (Faker\Generato
     ];
 });
 
+$factory->define(JrMessias\Entities\ProjectMember::class, function () {
+    return [
+        'project_id' => rand(1,10),
+        'user_id' => rand(1,10),
+    ];
+});
+

@@ -84,4 +84,17 @@ class ProjectController extends Controller
             return ['status' => false, 'message' => 'Não foi possível excluir o projeto'];
         }
     }
+
+    /**
+     * @param $id int
+     * @return Response
+     */
+    public function members($id)
+    {
+        try {
+            return $this->service->getMembers($id);
+        } catch (ModelNotFoundException $e) {
+            return ['status' => false, 'message' => 'Não foi possível excluir o projeto'];
+        }
+    }
 }

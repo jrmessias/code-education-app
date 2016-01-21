@@ -13,6 +13,6 @@ class ProjectTaskTableSeeder extends Seeder
     public function run()
     {
         ProjectTask::truncate();
-        factory(ProjectTask::class, 10)->create();
+        factory(ProjectTask::class, 50)->create();
     }
 }
