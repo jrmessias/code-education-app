@@ -69,73 +69,12 @@ class ProjectService
 
     public function all()
     {
-        return $this->repository->with(['project'])->all();
+        return $this->repository->all();
     }
 
     public function find($id)
     {
-        return $this->repository->with(['project'])->find($id);
+        return $this->repository->find($id);
     }
-
-    /**
-     * @param $idProject int
-     * @param $idMember int
-     * @return mixed
-     */
-    public function addMember($idProject, $idMember)
-    {
-        $data = ['project_id' => $idProject, 'user_id' => $idMember];
-        return $this->projectMemberRepository->create($data);
-    }
-
-    /**
-     * @param $idProject int
-     * @param $idMember int
-     * @return array
-     */
-    public function removeMember($idProject, $idMember)
-    {
-        try {
-            $data = ['project_id' => $idProject, 'user_id' => $idMember];
-            return $this->projectMemberRepository->findWhere($data)->delete();
-        } catch (ModelNotFoundException $e) {
-            return [
-                'error' => true,
-                'message' => $e->getMessage()
-            ];
-        }
-    }
-
-    /**
-     * @param $idProject int
-     * @param $idMember int
-     * @return array|mixed
-     */
-    public function isMember($idProject, $idMember)
-    {
-        try {
-            $data = ['project_id' => $idProject, 'user_id' => $idMember];
-            return $this->projectMemberRepository->findWhere($data);
-        } catch (ModelNotFoundException $e) {
-            return [
-                'error' => true,
-                'message' => $e->getMessage()
-            ];
-        }
-    }
-
-    public function getMembers($idProject)
-    {
-        try {
-            $data = ['project_id' => $idProject];
-            return $this->projectMemberRepository->findWhere($data);
-        } catch (ModelNotFoundException $e) {
-            return [
-                'error' => true,
-                'message' => $e->getMessage()
-            ];
-        }
-    }
-
 
 }
