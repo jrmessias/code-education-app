@@ -67,7 +67,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => JrMessias\User::class,
+            'model' => JrMessias\Entities\User::class,
         ],
 
         // 'users' => [

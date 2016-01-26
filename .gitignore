@@ -9,3 +9,4 @@ resources/bower_components
 public/build/
 public/css/
 public/js/
+composer.lock
