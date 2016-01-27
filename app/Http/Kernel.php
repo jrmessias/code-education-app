@@ -55,6 +55,11 @@ class Kernel extends HttpKernel
         'csrf' => \JrMessias\Http\Middleware\VerifyCsrfToken::class,
 
         /**
+         * Project
+         */
+        'check-project-owner' => \JrMessias\Http\Middleware\CheckProjectOwner::class,
+
+        /**
          * 3rd
          */
         'oauth' => \LucaDegasperi\OAuth2Server\Middleware\OAuthMiddleware::class,

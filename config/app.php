@@ -154,6 +154,7 @@ return [
         Prettus\Repository\Providers\RepositoryServiceProvider::class,
         LucaDegasperi\OAuth2Server\Storage\FluentStorageServiceProvider::class,
         LucaDegasperi\OAuth2Server\OAuth2ServerServiceProvider::class,
+        Barryvdh\Debugbar\ServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -214,6 +215,7 @@ return [
          * 3rd
          */
         'Authorizer' => LucaDegasperi\OAuth2Server\Facades\Authorizer::class,
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
 
     ],
 

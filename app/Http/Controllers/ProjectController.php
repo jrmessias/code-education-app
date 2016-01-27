@@ -7,6 +7,7 @@ use JrMessias\Repositories\ProjectRepository;
 use JrMessias\Services\ProjectService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use LucaDegasperi\OAuth2Server\Facades\Authorizer;
 
 class ProjectController extends Controller
 {
@@ -31,7 +32,9 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        return $this->service->all();
+        $idUser = Authorizer::getResourceOwnerId();
+
+        return $this->repository->findWhere(['owner_id' => $idUser]);
     }
 
     /**
@@ -50,6 +53,10 @@ class ProjectController extends Controller
      */
     public function update($id, Request $request)
     {
+        if (!$this->checkOwner($id)) {
+            return ['success' => false];
+        }
+
         try {
             return $this->repository->find($id)->update($request->all());
         } catch (ModelNotFoundException $e) {
@@ -63,6 +70,10 @@ class ProjectController extends Controller
      */
     public function show($id)
     {
+        if (!$this->checkPermissions($id)) {
+            return ['success' => false];
+        }
+
         try {
             return $this->service->find($id);
         } catch (ModelNotFoundException $e) {
@@ -77,6 +88,10 @@ class ProjectController extends Controller
      */
     public function destroy($id)
     {
+        if (!$this->checkOwner($id)) {
+            return ['success' => false];
+        }
+
         try {
             $this->repository->delete($id);
             return ['status' => true, 'message' => 'Projeto excluído com sucesso'];
@@ -96,5 +111,30 @@ class ProjectController extends Controller
         } catch (ModelNotFoundException $e) {
             return ['status' => false, 'message' => 'Não foi possível excluir o projeto'];
         }
+    }
+
+    private function checkOwner($idProject)
+    {
+        $idUser = Authorizer::getResourceOwnerId();
+
+        return $this->repository->isOwner($idProject, $idUser);
+    }
+
+    private function checkMember($idProject)
+    {
+        $idUser = Authorizer::getResourceOwnerId();
+
+        return $this->repository->isMember($idProject, $idUser);
+    }
+
+    private function checkPermissions($idProject)
+    {
+        if ($this->checkOwner($idProject) ||
+            $this->checkMember($idProject)
+        ) {
+            return true;
+        }
+        return false;
+
     }
 }

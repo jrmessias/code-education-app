@@ -11,7 +11,7 @@ class Project extends Model
 
     protected $fillable = [
         'owner_id',
-        'client_id',
+        'member_id',
         'name',
         'description',
         'progress',
@@ -25,15 +25,21 @@ class Project extends Model
         'deleted_at'
     ];
 
-    public function owner()
+    public function members()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsToMany(User::class, 'project_members', 'project_id', 'member_id');
     }
 
-    public function client()
-    {
-        return $this->belongsTo(Client::class);
-    }
+//
+//    public function owner()
+//    {
+//        return $this->belongsTo(User::class);
+//    }
+//
+//    public function client()
+//    {
+//        return $this->belongsTo(Client::class);
+//    }
 
     public function notes()
     {
