@@ -30,16 +30,16 @@ class Project extends Model
         return $this->belongsToMany(User::class, 'project_members', 'project_id', 'member_id');
     }
 
-//
-//    public function owner()
-//    {
-//        return $this->belongsTo(User::class);
-//    }
-//
-//    public function client()
-//    {
-//        return $this->belongsTo(Client::class);
-//    }
+
+    public function owner()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function client()
+    {
+        return $this->belongsTo(Client::class);
+    }
 
     public function notes()
     {

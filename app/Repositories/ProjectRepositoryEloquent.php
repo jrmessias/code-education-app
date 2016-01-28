@@ -2,6 +2,7 @@
 
 namespace JrMessias\Repositories;
 
+use JrMessias\Presenters\ProjectPresenter;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use JrMessias\Repositories\ProjectRepository;
@@ -43,5 +44,10 @@ class ProjectRepositoryEloquent extends BaseRepository implements ProjectReposit
         }
 
         return false;
+    }
+
+    public function presenter()
+    {
+        return ProjectPresenter::class;
     }
 }
