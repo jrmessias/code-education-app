@@ -23,11 +23,6 @@ class ProjectMemberService
     protected $repository;
 
     /**
-     * @var ProjectMemberService
-     */
-    protected $service;
-
-    /**
      * @var ProjectValidator
      */
     private $validator;

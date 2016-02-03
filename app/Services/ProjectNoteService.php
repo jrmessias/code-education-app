@@ -18,6 +18,7 @@ class ProjectNoteService
      * @var ProjectTaskRepository
      */
     protected $repository;
+
     /**
      * @var ProjectTaskValidator
      */

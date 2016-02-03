@@ -22,20 +22,14 @@ class ProjectService
     protected $repository;
 
     /**
-     * @var ProjectMemberRepository
-     */
-    protected  $projectMemberRepository;
-
-    /**
      * @var ProjectValidator
      */
     private $validator;
 
-    public function __construct(ProjectRepository $projectRepository, ProjectValidator $projectValidator, ProjectMemberRepository $projectMemberRepository)
+    public function __construct(ProjectRepository $projectRepository, ProjectValidator $projectValidator)
     {
         $this->repository = $projectRepository;
         $this->validator = $projectValidator;
-        $this->projectMemberRepository = $projectMemberRepository;
     }
 
     public function create(array $data)

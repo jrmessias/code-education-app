@@ -21,7 +21,7 @@ Route::post('oauth/access_token', function () {
     return Response::json(Authorizer::issueAccesstoken());
 });
 
-Route::group(['middleware' => 'oauth'], function () {
+//Route::group(['middleware' => 'oauth'], function () {
 
     Route::resource('client', 'ClientController', ['except' => ['create', 'edit']]);
 
@@ -59,6 +59,11 @@ Route::group(['middleware' => 'oauth'], function () {
         Route::get('{id}/task/{idTask}', 'ProjectTaskController@show');
         Route::put('{id}/task/{idTask}', 'ProjectTaskController@update');
         Route::delete('{id}/task/{idTask}', 'ProjectTaskController@destroy');
+
+        /**
+         * Files
+         */
+        Route::post('{id}/file', 'ProjectFileController@store');
     });
 
     /**
@@ -91,7 +96,7 @@ Route::group(['middleware' => 'oauth'], function () {
      * Route::delete('project/{id}', 'ProjectController@destroy');
      * Route::put('project/{id}', 'ProjectController@update');
      */
-});
+//});
 
 
 /*

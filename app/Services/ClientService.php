@@ -18,6 +18,7 @@ class ClientService
      * @var ClientRepository
      */
     protected $repository;
+
     /**
      * @var ClientValidator
      */

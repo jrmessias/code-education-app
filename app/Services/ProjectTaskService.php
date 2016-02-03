@@ -17,10 +17,12 @@ class ProjectTaskService
     /**
      * @var ProjectTaskRepository
      */
+
     protected $repository;
     /**
      * @var ProjectTaskValidator
      */
+
     private $validator;
 
     public function __construct(ProjectTaskRepository $projectTaskRepository, ProjectTaskValidator $projectTaskValidator)
