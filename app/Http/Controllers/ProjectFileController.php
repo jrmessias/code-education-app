@@ -25,6 +25,9 @@ class ProjectFileController extends Controller
         $this->service = $projectFileService;
     }
 
+    /**
+     * @param Request $request
+     */
     public function store(Request $request)
     {
         $data = [];
@@ -38,6 +41,14 @@ class ProjectFileController extends Controller
         $data['description'] = $request->description;
 
         $this->service->create($data);
+    }
+
+    /**
+     * @param string $filename
+     */
+    public function destroy($filename)
+    {
+        $this->service->destroy($filename);
     }
 
 }

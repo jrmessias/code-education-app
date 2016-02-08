@@ -13,6 +13,7 @@ use Illuminate\Filesystem\Filesystem;
 use JrMessias\Repositories\ProjectFileRepository;
 use JrMessias\Repositories\ProjectRepository;
 use JrMessias\Validators\ProjectFileValidator;
+use Mockery\CountValidator\Exception;
 
 
 class ProjectFileService
@@ -54,9 +55,8 @@ class ProjectFileService
     }
 
     /**
-     * @param $idProject int
-     * @param $idFile int
-     * @return mixed
+     * @param $data array
+     * @return array
      */
     public function create(array $data)
     {
@@ -76,7 +76,35 @@ class ProjectFileService
 
         $projectFile = $this->repository->create($data);
 
-        return $this->store->put($data['file_name'], $this->fileSystem->get($data['file']));
+        try {
+            $this->store->put($data['file_name'], $this->fileSystem->get($data['file']));
+        } catch (\Exception $e) {
+
+            return [
+                'error' => true,
+                'message' => $e->getMessage()
+            ];
+        }
+
+        return [
+            'error' => false,
+            'message' => ''
+        ];
+    }
+
+    /**
+     * @param $data array
+     * @return array
+     */
+    public function destroy($filename)
+    {
+        $file = $this->repository->findWhere(['file_name' => $filename]);
+
+        $this->store->delete($filename);
+        return [
+            'error' => false,
+            'message' => ''
+        ];
     }
 
 }
