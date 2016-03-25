@@ -1,6 +1,6 @@
 var app = angular.module('App', ['ngRoute', 'angular-oauth2', 'app.controllers']);
 
-angular.module('app.controllers', ['angular-oauth2']);
+angular.module('app.controllers', ['angular-oauth2', 'ngMessages']);
 
 app.config(['$routeProvider', 'OAuthProvider', function ($routeProvider, OAuthProvider) {
     $routeProvider
@@ -14,10 +14,10 @@ app.config(['$routeProvider', 'OAuthProvider', function ($routeProvider, OAuthPr
         });
 
     OAuthProvider.configure({
-        baseUrl: 'https://localhost:8000',
+        baseUrl: 'http://localhost:8000',
         grantPath: 'oauth/access_token',
-        clientId: 'app',
-        clientSecret: 'secret' // optional
+        clientId: '06742e6b9c7bffb59ed8f4ae4940df4f',
+        clientSecret: 'secret'
     });
 }]);
 
