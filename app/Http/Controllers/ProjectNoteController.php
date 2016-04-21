@@ -67,7 +67,7 @@ class ProjectNoteController extends Controller
     public function show($id, $idNote)
     {
         try {
-            return $this->repository->findWhere(['project_id' => $id, 'id' => $idNote]);
+            return $this->repository->findWhere(['project_id' => $id, 'id' => $idNote])[0];
         } catch (ModelNotFoundException $e) {
             return ['status' => false, 'message' => 'Não foi possível localizar a nota do projeto'];
         }
@@ -87,5 +87,15 @@ class ProjectNoteController extends Controller
         } catch (ModelNotFoundException $e) {
             return ['status' => false, 'message' => 'Não foi possível excluir a nota do projeto'];
         }
+    }
+
+    /**
+     * @param $idProject
+     * @return mixed
+     *
+     */
+    public function get($idProject)
+    {
+        return $this->service->getNotes($idProject);
     }
 }

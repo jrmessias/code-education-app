@@ -52,7 +52,7 @@ class ClientController extends Controller
     public function update($id, Request $request)
     {
         try {
-            return $this->repository->find($id)->update($request->all());
+            return $this->repository->skipPresenter()->find($id)->update($request->all());
         } catch (ModelNotFoundException $e) {
             return ['status' => false, 'message' => 'Não foi possível atualizar o cliente'];
         }
@@ -65,7 +65,7 @@ class ClientController extends Controller
     public function show($id)
     {
         try {
-            return $this->repository->find($id);
+            return $this->repository->skipPresenter()->find($id);
         } catch (ModelNotFoundException $e) {
             return ['status' => false, 'message' => 'Não foi possível exibir o cliente'];
         }
@@ -79,7 +79,7 @@ class ClientController extends Controller
     public function destroy($id)
     {
         try {
-            return $this->repository->find($id)->delete();
+            return $this->repository->skipPresenter()->find($id)->delete();
             return ['status' => true, 'message' => 'Projeto excluído com sucesso'];
         } catch (\PDOException $e) {
             return ['status' => false, 'message' => 'Não foi possível excluir o cliente'];

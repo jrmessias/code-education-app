@@ -41,7 +41,7 @@ class ProjectNoteService
             ];
         }
 
-        return $this->repository->create($data);
+        return $this->repository->skipPresenter()->create($data);
 
     }
 
@@ -56,17 +56,34 @@ class ProjectNoteService
             ];
         }
 
-        return $this->repository->update($data, $id);
+        return $this->repository->skipPresenter()->update($data, $id);
     }
 
     public function all()
     {
-        return $this->repository->with(['project'])->all();
+        return $this->repository->skipPresenter()->with(['project'])->all();
     }
 
     public function find($id)
     {
-        return $this->repository->with(['project'])->find($id);
+        return $this->repository->skipPresenter()->with(['project'])->find($id);
+    }
+
+    /**
+     * @param $idProject
+     * @return int
+     */
+    public function getNotes($idProject)
+    {
+        try {
+            $data = ['project_id' => $idProject];
+            return $this->repository->skipPresenter()->findWhere($data);
+        } catch (ModelNotFoundException $e) {
+            return [
+                'error' => true,
+                'message' => $e->getMessage()
+            ];
+        }
     }
 
 }

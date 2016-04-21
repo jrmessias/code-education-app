@@ -1,0 +1,24 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">Remoção de Nota</div>
+                <div class="panel-body">
+                    <div class="alert alert-danger">
+                        <strong>Deseja realmente excluir esta nota?</strong>
+                        <ul>
+                            <li>Título: {{ projectNote.title }}</li>
+                            <li>Nota: {{ projectNote.note }}</li>
+                        </ul>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <button type="button" class="btn btn-danger" ng-click="remove()">Sim</button>
+                            <a class="btn" ng-href="#/clients">Voltar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

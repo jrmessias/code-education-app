@@ -41,7 +41,7 @@ class ClientService
             ];
         }
 
-        return $this->repository->create($data);
+        return $this->repository->skipPresenter()->create($data);
 
     }
 
@@ -56,6 +56,6 @@ class ClientService
             ];
         }
 
-        return $this->repository->update($data, $id);
+        return $this->repository->skipPresenter()->update($data, $id);
     }
 }

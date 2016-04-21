@@ -38,7 +38,8 @@
 
         <div class="collapse navbar-collapse" id="navbar">
             <ul class="nav navbar-nav">
-                <li><a href="{{ url('/') }}">Welcome</a></li>
+                <li><a href="{{ url('/#/clients') }}">Clients</a></li>
+                <li><a href="{{ url('/#/project/1/notes') }}">Projects</a></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
@@ -81,8 +82,23 @@
     <script src="{{ asset('build/js/vendor/angular-oauth2.min.js') }}"></script>
 
     <script src="{{ asset('build/js/app.js') }}"></script>
+
+    <!-- CONTROLLERS -->
     <script src="{{ asset('build/js/controllers/login.js') }}"></script>
     <script src="{{ asset('build/js/controllers/home.js') }}"></script>
+    <script src="{{ asset('build/js/controllers/client/clientList.js') }}"></script>
+    <script src="{{ asset('build/js/controllers/client/clientNew.js') }}"></script>
+    <script src="{{ asset('build/js/controllers/client/clientEdit.js') }}"></script>
+    <script src="{{ asset('build/js/controllers/client/clientRemove.js') }}"></script>
+    <script src="{{ asset('build/js/controllers/projectNote/projectNoteList.js') }}"></script>
+    <script src="{{ asset('build/js/controllers/projectNote/projectNoteNew.js') }}"></script>
+    <script src="{{ asset('build/js/controllers/projectNote/projectNoteEdit.js') }}"></script>
+    <script src="{{ asset('build/js/controllers/projectNote/projectNoteRemove.js') }}"></script>
+    <script src="{{ asset('build/js/controllers/projectNote/projectNoteView.js') }}"></script>
+
+    <!-- SERVICES -->
+    <script src="{{ asset('build/js/services/client.js') }}"></script>
+    <script src="{{ asset('build/js/services/projectNote.js') }}"></script>
 @else
     <script src="{{ elixir('js/all.min.js') }}"></script>
 @endif
