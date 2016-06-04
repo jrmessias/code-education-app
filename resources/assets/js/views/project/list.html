@@ -1,0 +1,44 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">Lista de Projetos <a href="#/projects/new" class="btn btn-xs btn-warning pull-right">Novo</a></div>
+                <div class="panel-body">
+                    <table class="table table-bordered table-condensed table-hover table-responsive table-striped">
+                        <thead>
+                        <tr>
+                            <td>Nome</td>
+                            <td>Cliente</td>
+                            <td>Progresso</td>
+                            <td>Status</td>
+                            <td>Data Venc.</td>
+                            <td>Ações</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="project in projects">
+                            <td>{{ project.name }}</td>
+                            <td>{{ project.client.data.name }}</td>
+                            <td>
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="{{ project.progress }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ project.progress }}%;">
+                                        {{ project.progress }}
+                                    </div>
+                                </div>
+                            </td>
+                            <td>{{ project.status }}</td>
+                            <td>{{ project.due_date | dateBr }}</td>
+                            <td>
+                                <a ng-href="#/projects/{{ project.id }}" class="btn btn-info">Ver</a>
+                                <a ng-href="#/projects/{{ project.id }}/edit" class="btn btn-primary">Editar</a>
+                                <a ng-href="#/projects/{{ project.id }}/remove" class="btn btn-danger">Remover</a>
+                                <a ng-href="#/project/{{ project.id }}/notes" class="btn btn-default"><i class="fa fa-tag"></i></a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

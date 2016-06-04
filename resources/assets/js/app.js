@@ -1,11 +1,40 @@
-var app = angular.module('App', ['ngRoute', 'angular-oauth2', 'app.controllers', 'app.services']);
+var app = angular.module('App',
+    ['ngRoute', 'angular-oauth2', 'app.controllers', 'app.services', 'app.filters']
+);
 
 angular.module('app.controllers', ['angular-oauth2', 'ngMessages']);
+angular.module('app.filters', []);
 angular.module('app.services', ['ngResource']);
 
-app.provider('appConfig', function () {
+app.provider('appConfig', ['$httpParamSerializerProvider', function ($httpParamSerializerProvider) {
     var config = {
-        baseUrl: 'http://localhost:8000'
+        baseUrl: 'http://localhost:8000',
+        project: {
+            status: [
+                {value: 0, label: 'Não iniciado'},
+                {value: 1, label: 'Iniciado'},
+                {value: 2, label: 'Concluído'}
+            ]
+        },
+        utils: {
+            transformResponse: function (data, headers) {
+                if (headers()['content-type'] == 'application/json' ||
+                    headers()['content-type'] == 'text/json') {
+                    var dataJSON = JSON.parse(data);
+                    if (dataJSON.hasOwnProperty('data')) {
+                        dataJSON = dataJSON.data;
+                    }
+                    return dataJSON;
+                }
+                return data;
+            },
+            transformRequest: function (data) {
+                if (angular.isObject(data)) {
+                    return $httpParamSerializerProvider.$get()(data);
+                }
+                return data;
+            }
+        }
     };
 
     return {
@@ -14,10 +43,15 @@ app.provider('appConfig', function () {
             return config;
         }
     }
-});
+}]);
 
-app.config(['$routeProvider', 'OAuthProvider', 'OAuthTokenProvider', 'appConfigProvider',
-    function ($routeProvider, OAuthProvider, OAuthTokenProvider, appConfigProvider) {
+app.config(['$routeProvider', '$httpProvider', 'OAuthProvider', 'OAuthTokenProvider', 'appConfigProvider',
+    function ($routeProvider, $httpProvider, OAuthProvider, OAuthTokenProvider, appConfigProvider) {
+        $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+        $httpProvider.defaults.headers.put['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+        $httpProvider.defaults.transformResponse = appConfigProvider.config.utils.transformResponse;
+        $httpProvider.defaults.transformRequest = appConfigProvider.config.utils.transformRequest;
+
         $routeProvider
             .when('/login', {
                 templateUrl: 'build/views/login.html',
@@ -45,7 +79,6 @@ app.config(['$routeProvider', 'OAuthProvider', 'OAuthTokenProvider', 'appConfigP
                 controller: 'ClientRemoveController'
             })
             /* ##### Project Notes */
-            /* ##### Clients */
             .when('/project/:id/notes', {
                 templateUrl: 'build/views/projectNote/list.html',
                 controller: 'ProjectNoteListController'
@@ -65,7 +98,29 @@ app.config(['$routeProvider', 'OAuthProvider', 'OAuthTokenProvider', 'appConfigP
             .when('/project/:id/notes/:idNote', {
                 templateUrl: 'build/views/projectNote/view.html',
                 controller: 'ProjectNoteViewController'
+            })
+            /* ##### Project */
+            .when('/projects', {
+                templateUrl: 'build/views/project/list.html',
+                controller: 'ProjectListController'
+            })
+            .when('/projects/new', {
+                templateUrl: 'build/views/project/new.html',
+                controller: 'ProjectNewController'
+            })
+            .when('/projects/:id/edit', {
+                templateUrl: 'build/views/project/edit.html',
+                controller: 'ProjectEditController'
+            })
+            .when('/projects/:id/remove', {
+                templateUrl: 'build/views/project/remove.html',
+                controller: 'ProjectRemoveController'
+            })
+            .when('/projects/:id', {
+                templateUrl: 'build/views/project/view.html',
+                controller: 'ProjectViewController'
             });
+
 
         OAuthProvider.configure({
             baseUrl: appConfigProvider.config.baseUrl,

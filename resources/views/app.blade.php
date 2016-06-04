@@ -8,10 +8,13 @@
 
     <!-- Stylesheets -->
     @if(Config::get('app.debug'))
-        <link href="{{ asset('build/css/vendor/bootstrap.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('build/css/app.css') }}" rel="stylesheet">
+        <link href="{{ asset('build/css/components.css') }}" rel="stylesheet">
+        <link href="{{ asset('build/css/flaticon.css') }}" rel="stylesheet">
+        <link href="{{ asset('build/css/font-awesome.css') }}" rel="stylesheet">
     @else
         <link href="{{ elixir('css/all.min.css') }}" rel="stylesheet">
-        @endif
+    @endif
 
                 <!-- Fonts -->
         <link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
@@ -38,14 +41,14 @@
 
         <div class="collapse navbar-collapse" id="navbar">
             <ul class="nav navbar-nav">
-                <li><a href="{{ url('/#/clients') }}">Clients</a></li>
-                <li><a href="{{ url('/#/project/1/notes') }}">Projects</a></li>
+                <li><a href="{{ url('/#/clients') }}">Clientes</a></li>
+                <li><a href="{{ url('/#/projects') }}">Projetos</a></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
                 @if(auth()->guest())
-                    @if(!Request::is('auth/login'))
-                        <li><a href="{{ url('/auth/login') }}">Login</a></li>
+                    @if(!Request::is('#/login'))
+                        <li><a href="{{ url('/#/login') }}">Login</a></li>
                     @endif
                     @if(!Request::is('auth/register'))
                         <li><a href="{{ url('/auth/register') }}">Register</a></li>
@@ -55,7 +58,7 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                            aria-expanded="false">{{ auth()->user()->name }} <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="{{ url('/auth/logout') }}">Logout</a></li>
+                            <li><a href="{{ url('/#/logout') }}">Logout</a></li>
                         </ul>
                     </li>
                 @endif
@@ -95,10 +98,20 @@
     <script src="{{ asset('build/js/controllers/projectNote/projectNoteEdit.js') }}"></script>
     <script src="{{ asset('build/js/controllers/projectNote/projectNoteRemove.js') }}"></script>
     <script src="{{ asset('build/js/controllers/projectNote/projectNoteView.js') }}"></script>
+    <script src="{{ asset('build/js/controllers/project/projectList.js') }}"></script>
+    <script src="{{ asset('build/js/controllers/project/projectNew.js') }}"></script>
+    <script src="{{ asset('build/js/controllers/project/projectEdit.js') }}"></script>
+    <script src="{{ asset('build/js/controllers/project/projectRemove.js') }}"></script>
+    <script src="{{ asset('build/js/controllers/project/projectView.js') }}"></script>
+
+    <!-- FILTERS -->
+    <script src="{{ asset('build/js/filters/dateBr.js') }}"></script>
 
     <!-- SERVICES -->
     <script src="{{ asset('build/js/services/client.js') }}"></script>
     <script src="{{ asset('build/js/services/projectNote.js') }}"></script>
+    <script src="{{ asset('build/js/services/project.js') }}"></script>
+    <script src="{{ asset('build/js/services/user.js') }}"></script>
 @else
     <script src="{{ elixir('js/all.min.js') }}"></script>
 @endif

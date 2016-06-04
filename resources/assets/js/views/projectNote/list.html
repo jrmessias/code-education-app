@@ -2,7 +2,11 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Lista de Notas de Projeto <a href="#/project/{{ projectId }}/notes/new" class="btn btn-xs btn-warning pull-right">Novo</a> </div>
+                <div class="panel-heading">
+                    Lista de Notas de Projeto
+                    <a href="#/projects" class="btn btn-xs btn-success pull-right">Voltar ao Projeto</a>&nbsp;
+                    <a href="#/project/{{ projectId }}/notes/new" class="btn btn-xs btn-warning">Novo</a>
+                </div>
                 <div class="panel-body">
                     <table class="table table-bordered table-condensed table-hover table-responsive table-striped">
                         <thead>
@@ -17,7 +21,7 @@
                         <tr ng-repeat="note in notes">
                             <td>{{ note.id }}</td>
                             <td>{{ note.title }}</td>
-                            <td>{{ note.note }}</td>
+                            <td>{{ note.note | limitTo: 25 }}...</td>
                             <td>
                                 <a ng-href="#/project/{{ projectId }}/notes/{{ note.id }}" class="btn btn-info">Visualizar</a>
                                 <a ng-href="#/project/{{ projectId }}/notes/{{ note.id }}/edit" class="btn btn-primary">Editar</a>

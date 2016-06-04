@@ -27,6 +27,8 @@ Route::group(['middleware' => 'oauth'], function () {
 
     Route::resource('project', 'ProjectController', ['except' => ['create', 'edit']]);
 
+    Route::get('user/authenticated', 'UserController@authenticated');
+
     Route::group(['prefix' => 'project'], function () {
         /**
          * Members
@@ -61,7 +63,6 @@ Route::group(['middleware' => 'oauth'], function () {
         Route::post('{id}/file', 'ProjectFileController@store');
         Route::delete('{filename}/file', 'ProjectFileController@destroy');
     });
-
 });
 
 

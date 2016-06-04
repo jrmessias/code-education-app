@@ -47,5 +47,9 @@ class JrMessiasRepositoryProvider extends ServiceProvider
             \JrMessias\Repositories\ProjectFileRepository::class,
             \JrMessias\Repositories\ProjectFileRepositoryEloquent::class);
 
+        $this->app->bind(
+            \JrMessias\Repositories\UserRepository::class,
+            \JrMessias\Repositories\UserRepositoryEloquent::class);
+
     }
 }

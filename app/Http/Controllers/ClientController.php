@@ -52,7 +52,8 @@ class ClientController extends Controller
     public function update($id, Request $request)
     {
         try {
-            return $this->repository->skipPresenter()->find($id)->update($request->all());
+            $this->repository->skipPresenter()->find($id)->update($request->all());
+            return $this->repository->skipPresenter()->find($id);
         } catch (ModelNotFoundException $e) {
             return ['status' => false, 'message' => 'Não foi possível atualizar o cliente'];
         }

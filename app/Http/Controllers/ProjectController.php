@@ -34,7 +34,7 @@ class ProjectController extends Controller
     {
         $idUser = Authorizer::getResourceOwnerId();
 
-        return $this->repository->findWhere(['owner_id' => $idUser]);
+        return $this->repository->with(['client'])->findWhere(['owner_id' => $idUser]);
     }
 
     /**
@@ -58,7 +58,7 @@ class ProjectController extends Controller
         }
 
         try {
-            return $this->repository->find($id)->update($request->all());
+            return $this->service->update($request->all(), $id);
         } catch (ModelNotFoundException $e) {
             return ['status' => false, 'message' => 'Não foi possível atualizar o projeto'];
         }
@@ -75,7 +75,7 @@ class ProjectController extends Controller
         }
 
         try {
-            return $this->service->find($id);
+            return $this->repository->find($id);
         } catch (ModelNotFoundException $e) {
             return ['status' => false, 'message' => 'Não foi possível localizar o projeto'];
         }

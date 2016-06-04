@@ -14,6 +14,10 @@ use League\Fractal\TransformerAbstract;
 class ClientTransformer extends  TransformerAbstract
 {
 
+    /**
+     * @param Client $client
+     * @return array
+     */
     public function transform(Client $client){
         return [
             'name' => $client->name,

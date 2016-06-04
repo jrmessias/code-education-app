@@ -1,0 +1,26 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">Visualização do Projeto</div>
+                <div class="panel-body">
+                    <div class="alert alert-warning">
+                        <ul>
+                            <li>ID: {{ project.project_id }}</li>
+                            <li>Nome: {{ project.name }}</li>
+                            <li>Descrição: {{ project.description }}</li>
+                            <li>Progresso:
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="{{ project.progress }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ project.progress }}%;">
+                                        {{ project.progress }}
+                                    </div>
+                                </div>
+                            </li>
+                            <li>Status: {{ project.status }}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
